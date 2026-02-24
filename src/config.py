@@ -37,8 +37,8 @@ def get_siliconflow_config(api_key: Optional[str] = None) -> ProviderConfig:
     return ProviderConfig(
         name="siliconflow",
         api_key=api_key or os.getenv("SILICONFLOW_API_KEY", ""),
-        base_url="https://api.siliconflow.cn/v1",
-        model="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        base_url="https://api.siliconflow.com/v1",  # FIX: .com no .cn
+        model="deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
         cost_per_1m_input=0.14,
         cost_per_1m_output=0.28,
     )

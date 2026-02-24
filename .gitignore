@@ -1,5 +1,15 @@
+# Virtualenvs
+.venv/
 venv/
-.env
+env/
+
+# Python cache / artefactos
 __pycache__/
 *.pyc
-.DS_Store
+*.pyo
+
+# Envar files
+.env
+
+# Resultados o salidas
+results/

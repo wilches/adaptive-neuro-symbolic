@@ -248,7 +248,6 @@ class SymbolicEngine:
         sympy = self._sympy
         steps.append("Attempting expression simplification")
 
-        # Extract math expressions
         math_patterns = [
             r'\$([^$]+)\$',
             r'\\\((.+?)\\\)',
@@ -258,57 +257,63 @@ class SymbolicEngine:
             matches = re.findall(pattern, problem)
             for match in matches:
                 if '=' in match:
-                    continue  # Skip equations, handled above
+                    continue
 
                 parsed = self._parse_math_expression(match)
                 if parsed is not None:
                     steps.append(f"Simplifying: {match}")
                     try:
                         simplified = sympy.simplify(parsed)
-                        evaluated = sympy.N(simplified)
-                        steps.append(f"Result: {evaluated}")
-                        return evaluated
+
+                        # ══════════════════════════════════════
+                        # FIX: Return rational/exact form first,
+                        # fall back to numerical only if needed
+                        # ══════════════════════════════════════
+
+                        # If it's already a nice number, return it
+                        if simplified.is_number:
+                            # Try to keep it rational (2/3 instead of 0.666)
+                            rational = sympy.nsimplify(simplified, rational=True)
+                            steps.append(f"Result: {rational}")
+                            return rational
+
+                        # Otherwise simplify symbolically
+                        steps.append(f"Result: {simplified}")
+                        return simplified
+
                     except Exception as e:
                         steps.append(f"Simplification failed: {e}")
 
         return None
 
+
     def _try_arithmetic_eval(
-        self, problem: str, steps: List[str]
+    self, problem: str, steps: List[str]
     ) -> Optional[Any]:
         """Try to evaluate pure arithmetic expressions."""
         steps.append("Attempting arithmetic evaluation")
 
-        # Look for computable expressions
-        # Extract things like "48 + 24", "48 / 2", etc.
-        arithmetic_patterns = [
-            r'(\d+(?:\.\d+)?)\s*([+\-*/])\s*(\d+(?:\.\d+)?)',
-        ]
+        # ══════════════════════════════════════════════════
+        # FIX: Handle full arithmetic expressions, not just
+        # single binary operations.
+        # ══════════════════════════════════════════════════
 
-        results = []
-        for pattern in arithmetic_patterns:
-            for match in re.finditer(pattern, problem):
-                expr_str = match.group(0)
-                try:
-                    # Safe evaluation — only arithmetic
-                    result = self._safe_eval(expr_str)
-                    if result is not None:
-                        results.append(result)
-                        steps.append(f"Evaluated: {expr_str} = {result}")
-                except Exception:
-                    pass
+        # Strategy 1: Find full arithmetic expressions in the text
+        # Match sequences of numbers and operators
+        full_expr_pattern = r'(\d+(?:\.\d+)?(?:\s*[+\-*/]\s*\d+(?:\.\d+)?)+)'
 
-        # If we found exactly one result, return it
-        if len(results) == 1:
-            return results[0]
+        for match in re.finditer(full_expr_pattern, problem):
+            expr_str = match.group(0)
+            result = self._safe_eval(expr_str)
+            if result is not None:
+                steps.append(f"Evaluated full expression: {expr_str} = {result}")
+                return result
 
-        # For word problems, try to extract ALL numbers and guess operation
+        # Strategy 2: Extract all numbers and try to find operations
+        # in the surrounding text
         numbers = re.findall(r'\b(\d+(?:\.\d+)?)\b', problem)
         if numbers:
             steps.append(f"Found numbers: {numbers}")
-            # Don't guess — if we can't determine the operation,
-            # this should go to CoT anyway
-            pass
 
         return None
 
@@ -361,12 +366,11 @@ class SymbolicEngine:
         """Parse a LaTeX or plain math expression into SymPy."""
         sympy = self._sympy
 
-        # Clean the expression
         cleaned = expr_str.strip()
         cleaned = cleaned.replace('\\left', '').replace('\\right', '')
         cleaned = cleaned.replace('\\,', ' ').replace('\\;', ' ')
 
-        # ── Try SymPy's LaTeX parser ────────────────
+        # ── Strategy 1: SymPy LaTeX parser ──────────
         try:
             from sympy.parsing.latex import parse_latex
             result = parse_latex(cleaned)
@@ -374,16 +378,50 @@ class SymbolicEngine:
         except Exception:
             pass
 
-        # ── Try converting LaTeX to SymPy string ────
+        # ── Strategy 2: Manual LaTeX → string → sympify with implicit mult ──
         converted = self._latex_to_sympy_string(cleaned)
         if converted:
+            try:
+                from sympy.parsing.sympy_parser import (
+                    parse_expr,
+                    standard_transformations,
+                    implicit_multiplication_application,
+                    convert_xor,
+                )
+                transformations = (
+                    standard_transformations
+                    + (implicit_multiplication_application,)
+                    + (convert_xor,)
+                )
+                result = parse_expr(converted, transformations=transformations)
+                return result
+            except Exception:
+                pass
+
+            # Fallback without transformations
             try:
                 result = sympy.sympify(converted)
                 return result
             except Exception:
                 pass
 
-        # ── Try direct sympify ──────────────────────
+        # ── Strategy 3: Direct sympify with implicit mult ──
+        try:
+            from sympy.parsing.sympy_parser import (
+                parse_expr,
+                standard_transformations,
+                implicit_multiplication_application,
+            )
+            transformations = (
+                standard_transformations
+                + (implicit_multiplication_application,)
+            )
+            result = parse_expr(cleaned, transformations=transformations)
+            return result
+        except Exception:
+            pass
+
+        # ── Strategy 4: Plain sympify ───────────────
         try:
             result = sympy.sympify(cleaned)
             return result
@@ -416,7 +454,6 @@ class SymbolicEngine:
         s = latex
 
         # ── Fractions ────────────────────────────────
-        # \frac{a}{b} → (a)/(b)
         while '\\frac' in s:
             match = re.search(
                 r'\\frac\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}'
@@ -436,15 +473,16 @@ class SymbolicEngine:
         # ── Powers ───────────────────────────────────
         s = re.sub(r'\^{([^{}]+)}', r'**(\1)', s)
         s = re.sub(r'\^(\d)', r'**\1', s)
+        s = re.sub(r'\^(\w)', r'**\1', s)
 
         # ── Common functions ─────────────────────────
         for func in ['sin', 'cos', 'tan', 'log', 'ln', 'exp']:
             s = s.replace(f'\\{func}', func)
 
-        # ── Multiplication ───────────────────────────
+        # ── Multiplication symbols ───────────────────
         s = s.replace('\\cdot', '*').replace('\\times', '*')
 
-        # ── Clean up ─────────────────────────────────
+        # ── Clean LaTeX residue ──────────────────────
         s = s.replace('\\', '').replace('{', '(').replace('}', ')')
         s = re.sub(r'\s+', ' ', s).strip()
 
