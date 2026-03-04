@@ -83,6 +83,10 @@ def run_full_experiment(
 
     math_data = load_math_dataset(sample_per_level=math_per_level)
     gsm8k_data = load_gsm8k_dataset(sample_size=gsm8k_size)
+
+    # Filter out problems without answers
+    math_data = [p for p in math_data if p['answer']]
+    gsm8k_data = [p for p in gsm8k_data if p['answer']]
     all_data = math_data + gsm8k_data
 
     logger.info(f"Total problems: {len(all_data)} "

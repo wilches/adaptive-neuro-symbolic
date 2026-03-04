@@ -52,7 +52,8 @@ def load_math_dataset(
 def _load_math_qwedsacf():
     """Load from qwedsacf/competition_math (community mirror)."""
     from datasets import load_dataset
-    ds = load_dataset("qwedsacf/competition_math", split="test")
+    # Este dataset solo tiene split 'train' (contiene los 12,500 problemas)
+    ds = load_dataset("qwedsacf/competition_math", split="train")
     all_problems = []
     for item in ds:
         all_problems.append({
@@ -121,7 +122,10 @@ def _sample_math(
     levels: List[int],
     seed: int,
 ) -> List[Dict]:
-    """Sample from loaded MATH dataset, stratified by level."""
+    """
+    Sample from MATH dataset, stratified by LEVEL and TYPE.
+    Ensures representative coverage of mathematical domains.
+    """
     random.seed(seed)
     sampled = []
     idx = 0
@@ -130,10 +134,8 @@ def _sample_math(
     by_level = {}
     for item in raw_dataset:
         level_str = str(item.get('level', 'Level 1'))
-        # Extract level number
         match = re.search(r'(\d+)', level_str)
         level_num = int(match.group(1)) if match else 1
-
         if level_num not in by_level:
             by_level[level_num] = []
         by_level[level_num].append(item)
@@ -146,10 +148,51 @@ def _sample_math(
             continue
 
         pool = by_level[level]
-        n = min(sample_per_level, len(pool))
-        selected = random.sample(pool, n)
 
-        for item in selected:
+        # ══════════════════════════════════════════
+        # Stratify by TYPE within each level
+        # This ensures we get algebra, geometry,
+        # number theory, etc. proportionally
+        # ══════════════════════════════════════════
+        by_type = {}
+        for item in pool:
+            t = item.get('type', 'unknown')
+            if t not in by_type:
+                by_type[t] = []
+            by_type[t].append(item)
+
+        # Calculate proportional allocation per type
+        n_total = min(sample_per_level, len(pool))
+        type_counts = {}
+        remaining = n_total
+
+        for t, items in sorted(by_type.items()):
+            proportion = len(items) / len(pool)
+            count = max(1, round(proportion * n_total))
+            count = min(count, len(items), remaining)
+            type_counts[t] = count
+            remaining -= count
+
+        # Distribute any remaining slots
+        while remaining > 0:
+            for t in by_type:
+                if remaining <= 0:
+                    break
+                if type_counts.get(t, 0) < len(by_type[t]):
+                    type_counts[t] = type_counts.get(t, 0) + 1
+                    remaining -= 1
+
+        # Sample from each type
+        level_samples = []
+        for t, count in type_counts.items():
+            available = by_type[t]
+            selected = random.sample(available, min(count, len(available)))
+            level_samples.extend(selected)
+
+        # Shuffle within level
+        random.shuffle(level_samples)
+
+        for item in level_samples:
             answer = _extract_math_answer(item.get('solution', ''))
             sampled.append({
                 'id': f"math_{idx}",
@@ -161,7 +204,14 @@ def _sample_math(
             })
             idx += 1
 
-    logger.info(f"MATH: Sampled {len(sampled)} problems across levels {levels}")
+    # Log sampling distribution
+    from collections import Counter
+    type_dist = Counter(p['type'] for p in sampled)
+    level_dist = Counter(p['level'] for p in sampled)
+    logger.info(f"MATH: Sampled {len(sampled)} problems")
+    logger.info(f"  By level: {dict(sorted(level_dist.items()))}")
+    logger.info(f"  By type:  {dict(sorted(type_dist.items()))}")
+
     return sampled
 
 

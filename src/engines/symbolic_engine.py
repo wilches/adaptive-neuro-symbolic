@@ -72,66 +72,74 @@ class SymbolicEngine:
     def solve(self, problem: str) -> SymbolicResult:
         """
         Attempt to solve a mathematical problem symbolically.
-
-        Tries multiple strategies in order of specificity.
-
-        Args:
-            problem: Mathematical problem text (may contain LaTeX).
-
-        Returns:
-            SymbolicResult with answer and method details.
         """
         start_time = time.time()
         steps = []
+        MAX_TIME = 10  # seconds — don't spend more than 10s on any problem
 
         # ── Strategy 1: Extract and solve equations ──
-        result = self._try_equation_solving(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="sympy_solve",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_equation_solving(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="sympy_solve",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Equation solving error: {e}")
 
-        # ── Strategy 2: Extract and simplify expression ──
-        result = self._try_simplification(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="sympy_simplify",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        # ── Strategy 2: Simplify expression ──────────
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_simplification(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="sympy_simplify",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Simplification error: {e}")
 
-        # ── Strategy 3: Direct arithmetic evaluation ──
-        result = self._try_arithmetic_eval(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="arithmetic_eval",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        # ── Strategy 3: Arithmetic evaluation ────────
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_arithmetic_eval(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="arithmetic_eval",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Arithmetic error: {e}")
 
-        # ── Strategy 4: Z3 constraint solving ───────
-        if self._z3 is not None:
-            result = self._try_z3_solve(problem, steps)
-            if result is not None:
-                elapsed = round(time.time() - start_time, 4)
-                return SymbolicResult(
-                    answer=str(result),
-                    method_used="z3",
-                    steps=steps,
-                    success=True,
-                    latency_seconds=elapsed,
-                )
+        # ── Strategy 4: Z3 ──────────────────────────
+        try:
+            if self._z3 is not None and time.time() - start_time < MAX_TIME:
+                result = self._try_z3_solve(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="z3",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Z3 error: {e}")
 
         # ── All strategies failed ────────────────────
         elapsed = round(time.time() - start_time, 4)
@@ -212,9 +220,7 @@ class SymbolicEngine:
         sympy = self._sympy
         steps.append("Attempting equation extraction and solving")
 
-        # ── Extract LaTeX equations ──────────────────
         equation_patterns = [
-            # Pattern: ... = ...
             r'\$([^$]*=[^$]*)\$',
             r'\\\(([^)]*=[^)]*)\\\)',
             r'([a-zA-Z0-9\s\+\-\*/\^()]+=[a-zA-Z0-9\s\+\-\*/\^()]+)',
@@ -223,21 +229,24 @@ class SymbolicEngine:
         for pattern in equation_patterns:
             matches = re.findall(pattern, problem)
             for match in matches:
-                parsed = self._parse_equation(match)
-                if parsed is not None:
-                    steps.append(f"Found equation: {match}")
-                    try:
-                        variables = list(parsed.free_symbols)
-                        if len(variables) == 1:
-                            solutions = sympy.solve(parsed, variables[0])
-                            if solutions:
-                                steps.append(f"Solved: {variables[0]} = {solutions}")
-                                return solutions[0] if len(solutions) == 1 else solutions
-                        elif len(variables) > 1:
-                            steps.append(f"Multiple variables found: {variables}")
-                            # Can't solve without more equations
-                    except Exception as e:
-                        steps.append(f"Solve failed: {e}")
+                try:
+                    parsed = self._parse_equation(match)
+                    if parsed is not None:
+                        steps.append(f"Found equation: {match}")
+                        try:
+                            variables = list(parsed.free_symbols)
+                            if len(variables) == 1:
+                                solutions = sympy.solve(parsed, variables[0])
+                                if solutions:
+                                    steps.append(f"Solved: {variables[0]} = {solutions}")
+                                    return solutions[0] if len(solutions) == 1 else solutions
+                            elif len(variables) > 1:
+                                steps.append(f"Multiple variables found: {variables}")
+                        except Exception as e:
+                            steps.append(f"Solve failed: {e}")
+                except Exception as e:
+                    steps.append(f"Parse failed for '{match[:50]}': {e}")
+                    continue
 
         return None
 
@@ -259,30 +268,22 @@ class SymbolicEngine:
                 if '=' in match:
                     continue
 
-                parsed = self._parse_math_expression(match)
-                if parsed is not None:
-                    steps.append(f"Simplifying: {match}")
-                    try:
+                try:
+                    parsed = self._parse_math_expression(match)
+                    if parsed is not None:
+                        steps.append(f"Simplifying: {match}")
                         simplified = sympy.simplify(parsed)
 
-                        # ══════════════════════════════════════
-                        # FIX: Return rational/exact form first,
-                        # fall back to numerical only if needed
-                        # ══════════════════════════════════════
-
-                        # If it's already a nice number, return it
                         if simplified.is_number:
-                            # Try to keep it rational (2/3 instead of 0.666)
                             rational = sympy.nsimplify(simplified, rational=True)
                             steps.append(f"Result: {rational}")
                             return rational
 
-                        # Otherwise simplify symbolically
                         steps.append(f"Result: {simplified}")
                         return simplified
-
-                    except Exception as e:
-                        steps.append(f"Simplification failed: {e}")
+                except Exception as e:
+                    steps.append(f"Simplification failed: {e}")
+                    continue
 
         return None
 
@@ -441,11 +442,18 @@ class SymbolicEngine:
         if len(parts) != 2:
             return None
 
-        left = self._parse_math_expression(parts[0].strip())
-        right = self._parse_math_expression(parts[1].strip())
+        try:
+            left = self._parse_math_expression(parts[0].strip())
+            right = self._parse_math_expression(parts[1].strip())
 
-        if left is not None and right is not None:
-            return sympy.Eq(left, right)
+            if left is not None and right is not None:
+                # Verify both sides are valid SymPy expressions
+                # before creating Eq
+                sympy.sympify(left)
+                sympy.sympify(right)
+                return sympy.Eq(left, right)
+        except Exception:
+            return None
 
         return None
 
