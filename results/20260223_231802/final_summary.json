@@ -1,0 +1,137 @@
+{
+  "experiment_timestamp": "20260223_231802",
+  "provider": "siliconflow/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+  "dataset_sizes": {
+    "math": 25,
+    "gsm8k": 10,
+    "total": 35
+  },
+  "results": {
+    "symbolic_only": {
+      "total_problems": 35,
+      "correct": 8,
+      "accuracy": 0.2286,
+      "total_tokens": 0,
+      "avg_tokens": 0.0,
+      "total_cost_usd": 0.0,
+      "avg_latency_seconds": 0.024,
+      "route_distribution": {
+        "symbolic": 35
+      },
+      "route_accuracy": {
+        "symbolic": {
+          "correct": 8,
+          "total": 35,
+          "accuracy": 0.2286
+        }
+      },
+      "route_tokens": {
+        "symbolic": {
+          "mean": 0.0,
+          "median": 0.0,
+          "total": 0
+        }
+      }
+    },
+    "cot_only": {
+      "total_problems": 35,
+      "correct": 29,
+      "accuracy": 0.8286,
+      "total_tokens": 36554,
+      "avg_tokens": 1044.4,
+      "total_cost_usd": 0.009845,
+      "avg_latency_seconds": 15.269,
+      "route_distribution": {
+        "neural_cot": 35
+      },
+      "route_accuracy": {
+        "neural_cot": {
+          "correct": 29,
+          "total": 35,
+          "accuracy": 0.8286
+        }
+      },
+      "route_tokens": {
+        "neural_cot": {
+          "mean": 1044.4,
+          "median": 1016.0,
+          "total": 36554
+        }
+      }
+    },
+    "fixed_hybrid": {
+      "total_problems": 35,
+      "correct": 25,
+      "accuracy": 0.7143,
+      "total_tokens": 40827,
+      "avg_tokens": 1166.5,
+      "total_cost_usd": 0.011039,
+      "avg_latency_seconds": 15.945,
+      "route_distribution": {
+        "hybrid": 35
+      },
+      "route_accuracy": {
+        "hybrid": {
+          "correct": 25,
+          "total": 35,
+          "accuracy": 0.7143
+        }
+      },
+      "route_tokens": {
+        "hybrid": {
+          "mean": 1166.5,
+          "median": 1098.0,
+          "total": 40827
+        }
+      }
+    },
+    "adaptive": {
+      "total_problems": 35,
+      "correct": 25,
+      "accuracy": 0.7143,
+      "total_tokens": 25478,
+      "avg_tokens": 727.9,
+      "total_cost_usd": 0.00683,
+      "avg_latency_seconds": 10.198,
+      "route_distribution": {
+        "symbolic": 9,
+        "hybrid": 13,
+        "neural_cot": 13
+      },
+      "route_accuracy": {
+        "symbolic": {
+          "correct": 5,
+          "total": 9,
+          "accuracy": 0.5556
+        },
+        "hybrid": {
+          "correct": 8,
+          "total": 13,
+          "accuracy": 0.6154
+        },
+        "neural_cot": {
+          "correct": 12,
+          "total": 13,
+          "accuracy": 0.9231
+        }
+      },
+      "route_tokens": {
+        "symbolic": {
+          "mean": 0.0,
+          "median": 0.0,
+          "total": 0
+        },
+        "hybrid": {
+          "mean": 1285.0,
+          "median": 1059.0,
+          "total": 16705
+        },
+        "neural_cot": {
+          "mean": 674.8,
+          "median": 561.0,
+          "total": 8773
+        }
+      }
+    }
+  }
+}

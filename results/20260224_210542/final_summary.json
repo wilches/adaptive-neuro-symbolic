@@ -1,0 +1,137 @@
+{
+  "experiment_timestamp": "20260224_210542",
+  "provider": "siliconflow/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+  "dataset_sizes": {
+    "math": 299,
+    "gsm8k": 100,
+    "total": 399
+  },
+  "results": {
+    "symbolic_only": {
+      "total_problems": 399,
+      "correct": 147,
+      "accuracy": 0.3684,
+      "total_tokens": 213833,
+      "avg_tokens": 535.9,
+      "total_cost_usd": 0.057104,
+      "avg_latency_seconds": 6.777,
+      "route_distribution": {
+        "symbolic": 399
+      },
+      "route_accuracy": {
+        "symbolic": {
+          "correct": 147,
+          "total": 399,
+          "accuracy": 0.3684
+        }
+      },
+      "route_tokens": {
+        "symbolic": {
+          "mean": 535.9,
+          "median": 0.0,
+          "total": 213833
+        }
+      }
+    },
+    "cot_only": {
+      "total_problems": 399,
+      "correct": 255,
+      "accuracy": 0.6391,
+      "total_tokens": 544129,
+      "avg_tokens": 1363.7,
+      "total_cost_usd": 0.145799,
+      "avg_latency_seconds": 16.131,
+      "route_distribution": {
+        "neural_cot": 399
+      },
+      "route_accuracy": {
+        "neural_cot": {
+          "correct": 255,
+          "total": 399,
+          "accuracy": 0.6391
+        }
+      },
+      "route_tokens": {
+        "neural_cot": {
+          "mean": 1363.7,
+          "median": 1271.0,
+          "total": 544129
+        }
+      }
+    },
+    "fixed_hybrid": {
+      "total_problems": 399,
+      "correct": 247,
+      "accuracy": 0.619,
+      "total_tokens": 579805,
+      "avg_tokens": 1453.1,
+      "total_cost_usd": 0.155777,
+      "avg_latency_seconds": 17.916,
+      "route_distribution": {
+        "hybrid": 399
+      },
+      "route_accuracy": {
+        "hybrid": {
+          "correct": 247,
+          "total": 399,
+          "accuracy": 0.619
+        }
+      },
+      "route_tokens": {
+        "hybrid": {
+          "mean": 1453.1,
+          "median": 1373.0,
+          "total": 579805
+        }
+      }
+    },
+    "adaptive": {
+      "total_problems": 399,
+      "correct": 248,
+      "accuracy": 0.6216,
+      "total_tokens": 503687,
+      "avg_tokens": 1262.4,
+      "total_cost_usd": 0.134807,
+      "avg_latency_seconds": 16.261,
+      "route_distribution": {
+        "hybrid": 179,
+        "symbolic": 36,
+        "neural_cot": 184
+      },
+      "route_accuracy": {
+        "hybrid": {
+          "correct": 91,
+          "total": 179,
+          "accuracy": 0.5084
+        },
+        "symbolic": {
+          "correct": 8,
+          "total": 36,
+          "accuracy": 0.2222
+        },
+        "neural_cot": {
+          "correct": 149,
+          "total": 184,
+          "accuracy": 0.8098
+        }
+      },
+      "route_tokens": {
+        "hybrid": {
+          "mean": 1713.9,
+          "median": 1927.0,
+          "total": 306788
+        },
+        "symbolic": {
+          "mean": 415.7,
+          "median": 0.0,
+          "total": 14964
+        },
+        "neural_cot": {
+          "mean": 988.8,
+          "median": 742.5,
+          "total": 181935
+        }
+      }
+    }
+  }
+}

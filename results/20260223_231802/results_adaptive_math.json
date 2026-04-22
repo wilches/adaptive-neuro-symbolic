@@ -1,0 +1,1226 @@
+[
+  {
+    "problem_id": "math_0",
+    "problem_text": "Simplify $\\frac{12}{18}$.",
+    "expected_answer": "\\frac{2}{3}",
+    "predicted_answer": "2/3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.9,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2575,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.9,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7225,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.258 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.900 > 0.6)",
+      "composite_score": 0.2575,
+      "symbolic_structure": 0.9,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.006,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\frac{12}{18}",
+        "Result: 2/3"
+      ],
+      "success": true,
+      "latency": 0.0055
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_1",
+    "problem_text": "What is the value of $2 + 3 \\times 4$?",
+    "expected_answer": "14",
+    "predicted_answer": "14",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5833,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1458,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5833,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.55,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.146, \u03c3=0.583, \u03c9=0)",
+      "composite_score": 0.1458,
+      "symbolic_structure": 0.5833,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 69,
+    "tokens_output": 589,
+    "tokens_total": 658,
+    "latency_seconds": 7.969,
+    "api_cost_usd": 0.000175,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 7.963,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "14",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_2",
+    "problem_text": "What is the area of a rectangle with length $5$ and width $3$?",
+    "expected_answer": "15",
+    "predicted_answer": "15",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.375,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.0938,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.375,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.55,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.094, \u03c3=0.375, \u03c9=0)",
+      "composite_score": 0.0938,
+      "symbolic_structure": 0.375,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 71,
+    "tokens_output": 449,
+    "tokens_total": 520,
+    "latency_seconds": 6.407,
+    "api_cost_usd": 0.000136,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 6.393,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "15",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_3",
+    "problem_text": "Compute $\\sqrt{81}$.",
+    "expected_answer": "9",
+    "predicted_answer": "9",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8571,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2468,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8571,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7246,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.247 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.857 > 0.6)",
+      "composite_score": 0.2468,
+      "symbolic_structure": 0.8571,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.003,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\sqrt{81}",
+        "Result: 9"
+      ],
+      "success": true,
+      "latency": 0.0026
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_4",
+    "problem_text": "What is $\\frac{3}{4} + \\frac{1}{4}$?",
+    "expected_answer": "1",
+    "predicted_answer": "1",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 4.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8947,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2762,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 4.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8947,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7027,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.276 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.895 > 0.6)",
+      "composite_score": 0.2762,
+      "symbolic_structure": 0.8947,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.005,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\frac{3}{4} + \\frac{1}{4}",
+        "Result: 1"
+      ],
+      "success": true,
+      "latency": 0.0046
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_5",
+    "problem_text": "If $f(x) = 2x + 1$, what is $f(5)$?",
+    "expected_answer": "11",
+    "predicted_answer": "11",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.8,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2525,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.8,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.253 is low but n_V=2 variables with \u03c9=1 nesting suggests equation solving",
+      "composite_score": 0.2525,
+      "symbolic_structure": 0.8,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 74,
+    "tokens_output": 1380,
+    "tokens_total": 1454,
+    "latency_seconds": 19.577,
+    "api_cost_usd": 0.000397,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 19.567,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "11",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_6",
+    "problem_text": "What is the value of $\\frac{2^4 \\cdot 3}{6}$?",
+    "expected_answer": "8",
+    "predicted_answer": "8",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.7222,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.223,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.7222,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7214,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.223 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.722 > 0.6)",
+      "composite_score": 0.223,
+      "symbolic_structure": 0.7222,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.003,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\frac{2^4 \\cdot 3}{6}",
+        "Result: 8"
+      ],
+      "success": true,
+      "latency": 0.0021
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_7",
+    "problem_text": "What is $2^{10}$?",
+    "expected_answer": "1024",
+    "predicted_answer": "1024",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.7778,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.217,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.7778,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7386,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.217 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.778 > 0.6)",
+      "composite_score": 0.217,
+      "symbolic_structure": 0.7778,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.003,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: 2^{10}",
+        "Result: 1024"
+      ],
+      "success": true,
+      "latency": 0.002
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_8",
+    "problem_text": "Find the slope of the line passing through $(1, 2)$ and $(3, 8)$.",
+    "expected_answer": "3",
+    "predicted_answer": "3",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.5714,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1673,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.5714,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.575,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.167, \u03c3=0.571, \u03c9=1)",
+      "composite_score": 0.1673,
+      "symbolic_structure": 0.5714,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 75,
+    "tokens_output": 799,
+    "tokens_total": 874,
+    "latency_seconds": 13.985,
+    "api_cost_usd": 0.000234,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 13.975,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "3",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_9",
+    "problem_text": "How many ways can you arrange 3 books on a shelf?",
+    "expected_answer": "6",
+    "predicted_answer": "6",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.1,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.025,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.1,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 0.8667,
+      "reasoning": "NEURAL_COT: High complexity (C=0.025) or low symbolic content (\u03c3=0.100 < 0.3)",
+      "composite_score": 0.025,
+      "symbolic_structure": 0.1,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 66,
+    "tokens_output": 1336,
+    "tokens_total": 1402,
+    "latency_seconds": 17.583,
+    "api_cost_usd": 0.000383,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 17.582,
+      "full_response_length": 5470
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_10",
+    "problem_text": "Solve for $x$: $x^2 - 5x + 6 = 0$.",
+    "expected_answer": "2",
+    "predicted_answer": "3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.8462,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2315,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.8462,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.232 is low but n_V=1 variables with \u03c9=0 nesting suggests equation solving",
+      "composite_score": 0.2315,
+      "symbolic_structure": 0.8462,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 74,
+    "tokens_output": 964,
+    "tokens_total": 1038,
+    "latency_seconds": 13.351,
+    "api_cost_usd": 0.00028,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 13.341,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "3",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_11",
+    "problem_text": "Simplify $\\frac{x^2 - 9}{x + 3}$.",
+    "expected_answer": "x - 3",
+    "predicted_answer": "x - 3",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.9286,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2847,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.9286,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.285 is low but n_V=1 variables with \u03c9=1 nesting suggests equation solving",
+      "composite_score": 0.2847,
+      "symbolic_structure": 0.9286,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 70,
+    "tokens_output": 989,
+    "tokens_total": 1059,
+    "latency_seconds": 14.129,
+    "api_cost_usd": 0.000287,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 14.12,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "x - 3",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_12",
+    "problem_text": "What is the sum of the first 20 positive integers?",
+    "expected_answer": "210",
+    "predicted_answer": "210",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.1,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.025,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.1,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 0.8667,
+      "reasoning": "NEURAL_COT: High complexity (C=0.025) or low symbolic content (\u03c3=0.100 < 0.3)",
+      "composite_score": 0.025,
+      "symbolic_structure": 0.1,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 66,
+    "tokens_output": 755,
+    "tokens_total": 821,
+    "latency_seconds": 29.635,
+    "api_cost_usd": 0.000221,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 29.635,
+      "full_response_length": 2303
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_13",
+    "problem_text": "What is $\\binom{7}{3}$?",
+    "expected_answer": "35",
+    "predicted_answer": "21*b*i*m*n*o",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8182,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2371,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8182,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7265,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.237 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.818 > 0.6)",
+      "composite_score": 0.2371,
+      "symbolic_structure": 0.8182,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.013,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\binom{7}{3}",
+        "Result: 21*b*i*m*n*o"
+      ],
+      "success": true,
+      "latency": 0.0115
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_14",
+    "problem_text": "Solve the system: $x + y = 10$, $x - y = 4$.",
+    "expected_answer": "7",
+    "predicted_answer": "x = 7, y = 3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.7692,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2123,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.7692,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.212 is low but n_V=2 variables with \u03c9=0 nesting suggests equation solving",
+      "composite_score": 0.2123,
+      "symbolic_structure": 0.7692,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 75,
+    "tokens_output": 761,
+    "tokens_total": 836,
+    "latency_seconds": 15.123,
+    "api_cost_usd": 0.000224,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 15.111,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "x = 7, y = 3",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_15",
+    "problem_text": "What is the period of $\\sin(3x)$?",
+    "expected_answer": "\\frac{2\\pi}{3}",
+    "predicted_answer": "\\dfrac{2\\pi}{3}",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1475,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.575,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.147, \u03c3=0.500, \u03c9=1)",
+      "composite_score": 0.1475,
+      "symbolic_structure": 0.5,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 65,
+    "tokens_output": 1245,
+    "tokens_total": 1310,
+    "latency_seconds": 22.519,
+    "api_cost_usd": 0.000358,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 22.512,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "\\dfrac{2\\pi}{3}",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_16",
+    "problem_text": "Find the sum of all positive divisors of $72$.",
+    "expected_answer": "195",
+    "predicted_answer": "195",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.2727,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.0682,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.2727,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 0.6364,
+      "reasoning": "NEURAL_COT: High complexity (C=0.068) or low symbolic content (\u03c3=0.273 < 0.3)",
+      "composite_score": 0.0682,
+      "symbolic_structure": 0.2727,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 67,
+    "tokens_output": 1466,
+    "tokens_total": 1533,
+    "latency_seconds": 19.398,
+    "api_cost_usd": 0.00042,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 19.398,
+      "full_response_length": 3891
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_17",
+    "problem_text": "Find the area of a triangle with vertices $(0,0)$, $(4,0)$, and $(2,3)$.",
+    "expected_answer": "6",
+    "predicted_answer": "(0, 0)",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 1.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.6923,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1976,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 1.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.6923,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7409,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.198 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.692 > 0.6)",
+      "composite_score": 0.1976,
+      "symbolic_structure": 0.6923,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.005,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: (0,0)",
+        "Result: (0, 0)"
+      ],
+      "success": true,
+      "latency": 0.0037
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_18",
+    "problem_text": "Compute $\\sum_{k=1}^{10} k^2$.",
+    "expected_answer": "385",
+    "predicted_answer": "385",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 4.0,
+      "variable_count": 3,
+      "symbolic_structure": 0.9333,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.3158,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 4.0,
+        "variable_count": 3,
+        "symbolic_structure": 0.9333,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.575,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.316, \u03c3=0.933, \u03c9=1)",
+      "composite_score": 0.3158,
+      "symbolic_structure": 0.9333,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 70,
+    "tokens_output": 1723,
+    "tokens_total": 1793,
+    "latency_seconds": 24.605,
+    "api_cost_usd": 0.000492,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 24.597,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "385",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_19",
+    "problem_text": "Find $\\phi(100)$ (Euler's totient function).",
+    "expected_answer": "40",
+    "predicted_answer": "100*phi",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.6667,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1992,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.6667,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.7341,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.199 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.667 > 0.6)",
+      "composite_score": 0.1992,
+      "symbolic_structure": 0.6667,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.006,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\phi(100)",
+        "Result: 100*phi"
+      ],
+      "success": true,
+      "latency": 0.0046
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_20",
+    "problem_text": "Find $\\gcd(2^{30} - 1, 2^{20} - 1)$.",
+    "expected_answer": "1023",
+    "predicted_answer": "1023",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.95,
+      "nesting_complexity": 2,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2945,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 3.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.95,
+        "nesting_complexity": 2,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "symbolic",
+      "confidence": 0.6955,
+      "reasoning": "SYMBOLIC: Low complexity (C=0.294 < \u03c4_low=0.3) + high symbolic content (\u03c3=0.950 > 0.6)",
+      "composite_score": 0.2945,
+      "symbolic_structure": 0.95,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "symbolic",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "tokens_total": 0,
+    "latency_seconds": 0.004,
+    "api_cost_usd": 0.0,
+    "engine_used": "symbolic/sympy_simplify",
+    "engine_details": {
+      "method": "sympy_simplify",
+      "steps": [
+        "Attempting equation extraction and solving",
+        "Attempting expression simplification",
+        "Simplifying: \\gcd(2^{30} - 1, 2^{20} - 1)",
+        "Result: 1023"
+      ],
+      "success": true,
+      "latency": 0.0038
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_21",
+    "problem_text": "Find the minimum value of $x^2 + \\frac{1}{x}$ for $x > 0$.",
+    "expected_answer": "\\frac{3}{2^{2/3}}",
+    "predicted_answer": "-2",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.7143,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2311,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.7143,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.231 is low but n_V=1 variables with \u03c9=1 nesting suggests equation solving",
+      "composite_score": 0.2311,
+      "symbolic_structure": 0.7143,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 78,
+    "tokens_output": 2048,
+    "tokens_total": 2126,
+    "latency_seconds": 27.095,
+    "api_cost_usd": 0.000584,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 27.087,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "-2",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_22",
+    "problem_text": "If $a + b + c = 6$ and $a^2 + b^2 + c^2 = 14$, find $ab + bc + ca$.",
+    "expected_answer": "11",
+    "predicted_answer": "11",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.8,
+      "variable_count": 2,
+      "symbolic_structure": 0.88,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.278,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.8,
+        "variable_count": 2,
+        "symbolic_structure": 0.88,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.65,
+      "reasoning": "HYBRID (upgraded from Symbolic): C=0.278 is low but n_V=2 variables with \u03c9=0 nesting suggests equation solving",
+      "composite_score": 0.278,
+      "symbolic_structure": 0.88,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 91,
+    "tokens_output": 700,
+    "tokens_total": 791,
+    "latency_seconds": 9.704,
+    "api_cost_usd": 0.000209,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 9.697,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "11",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_23",
+    "problem_text": "In how many ways can you tile a $2 \\times 10$ board with $1 \\times 2$ dominoes?",
+    "expected_answer": "89",
+    "predicted_answer": "3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.125,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.55,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.125, \u03c3=0.500, \u03c9=0)",
+      "composite_score": 0.125,
+      "symbolic_structure": 0.5,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 82,
+    "tokens_output": 2048,
+    "tokens_total": 2130,
+    "latency_seconds": 25.405,
+    "api_cost_usd": 0.000585,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 25.394,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "3",
+    "symbolic_verification": "Could not parse expression"
+  },
+  {
+    "problem_id": "math_24",
+    "problem_text": "Find the last two digits of $7^{2023}$.",
+    "expected_answer": "43",
+    "predicted_answer": "43",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5385,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1571,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5385,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "hybrid",
+      "confidence": 0.575,
+      "reasoning": "HYBRID: Medium complexity zone (C=0.157, \u03c3=0.538, \u03c9=1)",
+      "composite_score": 0.1571,
+      "symbolic_structure": 0.5385,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "hybrid",
+    "tokens_input": 68,
+    "tokens_output": 2048,
+    "tokens_total": 2116,
+    "latency_seconds": 24.992,
+    "api_cost_usd": 0.000583,
+    "engine_used": "hybrid/cot+symbolic",
+    "engine_details": {
+      "cot_provider": "siliconflow",
+      "cot_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "cot_success": true,
+      "cot_latency": 24.985,
+      "verified": false,
+      "verification_status": "Could not parse expression"
+    },
+    "cot_answer": "43",
+    "symbolic_verification": "Could not parse expression"
+  }
+]

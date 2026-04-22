@@ -2,14 +2,14 @@
 Symbolic Reasoning Engine
 ==========================
 
-Interfaces with SymPy and Z3 for formal mathematical solving.
+Interfaces with SymPy formal mathematical solving.
 Runs entirely LOCAL — zero API cost, zero tokens consumed.
 
 Handles:
     - Algebraic equations and systems
     - Simplification and evaluation
     - Arithmetic word problem expressions
-    - Basic logical formulas (via Z3)
+    - Basic logical formulas
 """
 
 import re

@@ -10,6 +10,3 @@ __pycache__/
 
 # Envar files
 .env
-
-# Resultados o salidas
-results/

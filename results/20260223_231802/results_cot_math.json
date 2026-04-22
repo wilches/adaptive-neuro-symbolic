@@ -1,0 +1,1177 @@
+[
+  {
+    "problem_id": "math_0",
+    "problem_text": "Simplify $\\frac{12}{18}$.",
+    "expected_answer": "\\frac{2}{3}",
+    "predicted_answer": "\\dfrac{2}{3}",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.9,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2575,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.9,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2575,
+      "symbolic_structure": 0.9,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 65,
+    "tokens_output": 983,
+    "tokens_total": 1048,
+    "latency_seconds": 14.829,
+    "api_cost_usd": 0.000284,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 14.828,
+      "full_response_length": 3197
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_1",
+    "problem_text": "What is the value of $2 + 3 \\times 4$?",
+    "expected_answer": "14",
+    "predicted_answer": "14",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5833,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1458,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5833,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1458,
+      "symbolic_structure": 0.5833,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 69,
+    "tokens_output": 722,
+    "tokens_total": 791,
+    "latency_seconds": 10.736,
+    "api_cost_usd": 0.000212,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 10.735,
+      "full_response_length": 2726
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_2",
+    "problem_text": "What is the area of a rectangle with length $5$ and width $3$?",
+    "expected_answer": "15",
+    "predicted_answer": "15",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.375,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.0938,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.375,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.0938,
+      "symbolic_structure": 0.375,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 71,
+    "tokens_output": 410,
+    "tokens_total": 481,
+    "latency_seconds": 6.377,
+    "api_cost_usd": 0.000125,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 6.376,
+      "full_response_length": 1555
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_3",
+    "problem_text": "Compute $\\sqrt{81}$.",
+    "expected_answer": "9",
+    "predicted_answer": "9",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8571,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2468,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8571,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2468,
+      "symbolic_structure": 0.8571,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 61,
+    "tokens_output": 903,
+    "tokens_total": 964,
+    "latency_seconds": 12.609,
+    "api_cost_usd": 0.000261,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 12.609,
+      "full_response_length": 2965
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_4",
+    "problem_text": "What is $\\frac{3}{4} + \\frac{1}{4}$?",
+    "expected_answer": "1",
+    "predicted_answer": "1",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 4.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8947,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2762,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 4.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8947,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2762,
+      "symbolic_structure": 0.8947,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 71,
+    "tokens_output": 711,
+    "tokens_total": 782,
+    "latency_seconds": 9.218,
+    "api_cost_usd": 0.000209,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 9.217,
+      "full_response_length": 2607
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_5",
+    "problem_text": "If $f(x) = 2x + 1$, what is $f(5)$?",
+    "expected_answer": "11",
+    "predicted_answer": "11",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.8,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2525,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.8,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2525,
+      "symbolic_structure": 0.8,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 74,
+    "tokens_output": 1085,
+    "tokens_total": 1159,
+    "latency_seconds": 12.793,
+    "api_cost_usd": 0.000314,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 12.792,
+      "full_response_length": 3525
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_6",
+    "problem_text": "What is the value of $\\frac{2^4 \\cdot 3}{6}$?",
+    "expected_answer": "8",
+    "predicted_answer": "8",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.7222,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.223,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.7222,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.223,
+      "symbolic_structure": 0.7222,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 72,
+    "tokens_output": 1275,
+    "tokens_total": 1347,
+    "latency_seconds": 14.237,
+    "api_cost_usd": 0.000367,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 14.236,
+      "full_response_length": 4085
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_7",
+    "problem_text": "What is $2^{10}$?",
+    "expected_answer": "1024",
+    "predicted_answer": "1024",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.7778,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.217,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.7778,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.217,
+      "symbolic_structure": 0.7778,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 62,
+    "tokens_output": 1335,
+    "tokens_total": 1397,
+    "latency_seconds": 16.5,
+    "api_cost_usd": 0.000382,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 16.5,
+      "full_response_length": 3239
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_8",
+    "problem_text": "Find the slope of the line passing through $(1, 2)$ and $(3, 8)$.",
+    "expected_answer": "3",
+    "predicted_answer": "3",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.5714,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1673,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.5714,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1673,
+      "symbolic_structure": 0.5714,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 75,
+    "tokens_output": 747,
+    "tokens_total": 822,
+    "latency_seconds": 10.656,
+    "api_cost_usd": 0.00022,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 10.655,
+      "full_response_length": 2405
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_9",
+    "problem_text": "How many ways can you arrange 3 books on a shelf?",
+    "expected_answer": "6",
+    "predicted_answer": "6",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.1,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.025,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.1,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.025,
+      "symbolic_structure": 0.1,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 66,
+    "tokens_output": 973,
+    "tokens_total": 1039,
+    "latency_seconds": 12.556,
+    "api_cost_usd": 0.000282,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 12.555,
+      "full_response_length": 3963
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_10",
+    "problem_text": "Solve for $x$: $x^2 - 5x + 6 = 0$.",
+    "expected_answer": "2",
+    "predicted_answer": "3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.8462,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2315,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.8462,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2315,
+      "symbolic_structure": 0.8462,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 74,
+    "tokens_output": 952,
+    "tokens_total": 1026,
+    "latency_seconds": 12.248,
+    "api_cost_usd": 0.000277,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 12.247,
+      "full_response_length": 3069
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_11",
+    "problem_text": "Simplify $\\frac{x^2 - 9}{x + 3}$.",
+    "expected_answer": "x - 3",
+    "predicted_answer": "x - 3",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.9286,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2847,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.9286,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2847,
+      "symbolic_structure": 0.9286,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 70,
+    "tokens_output": 1061,
+    "tokens_total": 1131,
+    "latency_seconds": 13.845,
+    "api_cost_usd": 0.000307,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 13.844,
+      "full_response_length": 3317
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_12",
+    "problem_text": "What is the sum of the first 20 positive integers?",
+    "expected_answer": "210",
+    "predicted_answer": "210",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.1,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.025,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.1,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.025,
+      "symbolic_structure": 0.1,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 66,
+    "tokens_output": 755,
+    "tokens_total": 821,
+    "latency_seconds": 49.512,
+    "api_cost_usd": 0.000221,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 49.511,
+      "full_response_length": 2303
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_13",
+    "problem_text": "What is $\\binom{7}{3}$?",
+    "expected_answer": "35",
+    "predicted_answer": "35",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 2.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.8182,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2371,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 2.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.8182,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2371,
+      "symbolic_structure": 0.8182,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 64,
+    "tokens_output": 1089,
+    "tokens_total": 1153,
+    "latency_seconds": 13.313,
+    "api_cost_usd": 0.000314,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 13.313,
+      "full_response_length": 2802
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_14",
+    "problem_text": "Solve the system: $x + y = 10$, $x - y = 4$.",
+    "expected_answer": "7",
+    "predicted_answer": "x = 7, y = 3",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.7692,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2123,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.7692,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2123,
+      "symbolic_structure": 0.7692,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 75,
+    "tokens_output": 878,
+    "tokens_total": 953,
+    "latency_seconds": 11.733,
+    "api_cost_usd": 0.000256,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 11.732,
+      "full_response_length": 2805
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_15",
+    "problem_text": "What is the period of $\\sin(3x)$?",
+    "expected_answer": "\\frac{2\\pi}{3}",
+    "predicted_answer": "\\dfrac{2\\pi}{3}",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1475,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1475,
+      "symbolic_structure": 0.5,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 65,
+    "tokens_output": 1531,
+    "tokens_total": 1596,
+    "latency_seconds": 17.86,
+    "api_cost_usd": 0.000438,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 17.859,
+      "full_response_length": 5487
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_16",
+    "problem_text": "Find the sum of all positive divisors of $72$.",
+    "expected_answer": "195",
+    "predicted_answer": "195",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.2727,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.0682,
+      "routing_suggestion": "neural_cot",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.2727,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.0682,
+      "symbolic_structure": 0.2727,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 67,
+    "tokens_output": 1469,
+    "tokens_total": 1536,
+    "latency_seconds": 18.885,
+    "api_cost_usd": 0.000421,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 18.885,
+      "full_response_length": 3631
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_17",
+    "problem_text": "Find the area of a triangle with vertices $(0,0)$, $(4,0)$, and $(2,3)$.",
+    "expected_answer": "6",
+    "predicted_answer": "6",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.6923,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1976,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 1.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.6923,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1976,
+      "symbolic_structure": 0.6923,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 80,
+    "tokens_output": 2048,
+    "tokens_total": 2128,
+    "latency_seconds": 26.041,
+    "api_cost_usd": 0.000585,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 26.037,
+      "full_response_length": 6196
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_18",
+    "problem_text": "Compute $\\sum_{k=1}^{10} k^2$.",
+    "expected_answer": "385",
+    "predicted_answer": "385",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 4.0,
+      "variable_count": 3,
+      "symbolic_structure": 0.9333,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.3158,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 4.0,
+        "variable_count": 3,
+        "symbolic_structure": 0.9333,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.3158,
+      "symbolic_structure": 0.9333,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 70,
+    "tokens_output": 946,
+    "tokens_total": 1016,
+    "latency_seconds": 15.004,
+    "api_cost_usd": 0.000275,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 15.004,
+      "full_response_length": 2356
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_19",
+    "problem_text": "Find $\\phi(100)$ (Euler's totient function).",
+    "expected_answer": "40",
+    "predicted_answer": "40",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 2,
+      "symbolic_structure": 0.6667,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1992,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 2,
+        "symbolic_structure": 0.6667,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1992,
+      "symbolic_structure": 0.6667,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 69,
+    "tokens_output": 1602,
+    "tokens_total": 1671,
+    "latency_seconds": 23.313,
+    "api_cost_usd": 0.000458,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 23.313,
+      "full_response_length": 4484
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_20",
+    "problem_text": "Find $\\gcd(2^{30} - 1, 2^{20} - 1)$.",
+    "expected_answer": "1023",
+    "predicted_answer": "1023",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.2,
+      "variable_count": 0,
+      "symbolic_structure": 0.95,
+      "nesting_complexity": 2,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2945,
+      "routing_suggestion": "symbolic",
+      "raw_metrics": {
+        "logical_depth": 3.2,
+        "variable_count": 0,
+        "symbolic_structure": 0.95,
+        "nesting_complexity": 2,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2945,
+      "symbolic_structure": 0.95,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 77,
+    "tokens_output": 1835,
+    "tokens_total": 1912,
+    "latency_seconds": 24.856,
+    "api_cost_usd": 0.000525,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 24.855,
+      "full_response_length": 4002
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_21",
+    "problem_text": "Find the minimum value of $x^2 + \\frac{1}{x}$ for $x > 0$.",
+    "expected_answer": "\\frac{3}{2^{2/3}}",
+    "predicted_answer": "0",
+    "is_correct": false,
+    "complexity_profile": {
+      "logical_depth": 3.0,
+      "variable_count": 1,
+      "symbolic_structure": 0.7143,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.2311,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.0,
+        "variable_count": 1,
+        "symbolic_structure": 0.7143,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.2311,
+      "symbolic_structure": 0.7143,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 78,
+    "tokens_output": 2048,
+    "tokens_total": 2126,
+    "latency_seconds": 28.519,
+    "api_cost_usd": 0.000584,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 28.517,
+      "full_response_length": 5140
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_22",
+    "problem_text": "If $a + b + c = 6$ and $a^2 + b^2 + c^2 = 14$, find $ab + bc + ca$.",
+    "expected_answer": "11",
+    "predicted_answer": "11",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 3.8,
+      "variable_count": 2,
+      "symbolic_structure": 0.88,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.278,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 3.8,
+        "variable_count": 2,
+        "symbolic_structure": 0.88,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.278,
+      "symbolic_structure": 0.88,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 91,
+    "tokens_output": 1071,
+    "tokens_total": 1162,
+    "latency_seconds": 15.171,
+    "api_cost_usd": 0.000313,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 15.169,
+      "full_response_length": 3028
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_23",
+    "problem_text": "In how many ways can you tile a $2 \\times 10$ board with $1 \\times 2$ dominoes?",
+    "expected_answer": "89",
+    "predicted_answer": "89",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 0.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5,
+      "nesting_complexity": 0,
+      "quantifier_alternation": 0,
+      "composite_score": 0.125,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 0.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5,
+        "nesting_complexity": 0,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.125,
+      "symbolic_structure": 0.5,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 82,
+    "tokens_output": 1397,
+    "tokens_total": 1479,
+    "latency_seconds": 18.854,
+    "api_cost_usd": 0.000403,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 18.853,
+      "full_response_length": 4569
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  },
+  {
+    "problem_id": "math_24",
+    "problem_text": "Find the last two digits of $7^{2023}$.",
+    "expected_answer": "43",
+    "predicted_answer": "43",
+    "is_correct": true,
+    "complexity_profile": {
+      "logical_depth": 1.0,
+      "variable_count": 0,
+      "symbolic_structure": 0.5385,
+      "nesting_complexity": 1,
+      "quantifier_alternation": 0,
+      "composite_score": 0.1571,
+      "routing_suggestion": "hybrid",
+      "raw_metrics": {
+        "logical_depth": 1.0,
+        "variable_count": 0,
+        "symbolic_structure": 0.5385,
+        "nesting_complexity": 1,
+        "quantifier_alternation": 0
+      }
+    },
+    "routing_decision": {
+      "path": "neural_cot",
+      "confidence": 1.0,
+      "reasoning": "Forced route: neural_cot",
+      "composite_score": 0.1571,
+      "symbolic_structure": 0.5385,
+      "quantifier_alternation": 0
+    },
+    "route_taken": "neural_cot",
+    "tokens_input": 68,
+    "tokens_output": 2048,
+    "tokens_total": 2116,
+    "latency_seconds": 46.71,
+    "api_cost_usd": 0.000583,
+    "engine_used": "cot/siliconflow",
+    "engine_details": {
+      "provider": "siliconflow",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "success": true,
+      "latency": 46.709,
+      "full_response_length": 4368
+    },
+    "cot_answer": "",
+    "symbolic_verification": ""
+  }
+]
