@@ -6,8 +6,22 @@ Executes all baselines and the adaptive system, collects results.
 import json
 import logging
 import sys
+import logging
 from pathlib import Path
 from datetime import datetime
+import warnings
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+)
+
+# Silenciar logs muy verbosos
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("huggingface_hub").setLevel(logging.WARNING)
+
+warnings.filterwarnings("ignore", category=UserWarning, module="sympy")
+warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -69,6 +83,10 @@ def run_full_experiment(
 
     math_data = load_math_dataset(sample_per_level=math_per_level)
     gsm8k_data = load_gsm8k_dataset(sample_size=gsm8k_size)
+
+    # Filter out problems without answers
+    math_data = [p for p in math_data if p['answer']]
+    gsm8k_data = [p for p in gsm8k_data if p['answer']]
     all_data = math_data + gsm8k_data
 
     logger.info(f"Total problems: {len(all_data)} "
@@ -215,21 +233,37 @@ def _print_comparison_table(summary: dict):
 if __name__ == "__main__":
     import argparse
 
+    # Cargar .env
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
+
+    import os
+
     parser = argparse.ArgumentParser(description="Run adaptive reasoning experiment")
     parser.add_argument("--provider", default="siliconflow",
                         choices=["siliconflow", "openai", "gemini"])
-    parser.add_argument("--api-key", required=True, help="API key for the provider")
-    parser.add_argument("--math-per-level", type=int, default=20,
-                        help="MATH problems per difficulty level")
-    parser.add_argument("--gsm8k-size", type=int, default=40,
-                        help="Number of GSM8K problems")
+    parser.add_argument("--api-key", default=None,
+                        help="API key (overrides .env)")
+    parser.add_argument("--math-per-level", type=int, default=20)
+    parser.add_argument("--gsm8k-size", type=int, default=40)
     parser.add_argument("--output-dir", default="results")
 
     args = parser.parse_args()
 
+    # Obtener API key: argumento > .env > error
+    api_key = args.api_key or os.getenv("SILICONFLOW_API_KEY", "")
+
+    if not api_key:
+        print("ERROR: No API key found.")
+        print("Set SILICONFLOW_API_KEY in .env or pass --api-key")
+        sys.exit(1)
+
     run_full_experiment(
         provider=args.provider,
-        api_key=args.api_key,
+        api_key=api_key,
         math_per_level=args.math_per_level,
         gsm8k_size=args.gsm8k_size,
         output_dir=args.output_dir,

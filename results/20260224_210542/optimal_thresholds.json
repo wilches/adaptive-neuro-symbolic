@@ -1,0 +1,17 @@
+{
+  "optimal_thresholds": {
+    "tau_low": 0.25,
+    "tau_high": 0.6499999999999999,
+    "sigma_symbolic": 0.6,
+    "sigma_neural": 0.35,
+    "score": 0.5736023919020853,
+    "accuracy": 0.6165413533834586,
+    "token_efficiency": 0.4734114817788808
+  },
+  "old_thresholds": {
+    "tau_low": 0.3,
+    "tau_high": 0.65,
+    "sigma_symbolic": 0.6,
+    "sigma_neural": 0.3
+  }
+}

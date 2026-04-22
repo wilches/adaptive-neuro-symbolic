@@ -226,29 +226,47 @@ class CoTEngine:
         )
 
     def _extract_answer(self, response: str, prompt_type: str) -> str:
-        """
-        Extract the final answer from LLM response.
-
-        Handles multiple formats:
-          - \\boxed{answer}     (MATH format)
-          - #### answer         (GSM8K format)
-          - Last number         (fallback)
-        """
         if not response:
             return ""
 
-        # ── Try \\boxed{...} ────────────────────────
+        # ══════════════════════════════════════════
+        # FIX: DeepSeek-R1 includes </think> tag.
+        # Extract only the part AFTER </think> for
+        # answer extraction (thinking part may
+        # contain intermediate wrong answers).
+        # ══════════════════════════════════════════
+        if '</think>' in response:
+            # Use content after </think> for answer extraction
+            parts = response.split('</think>')
+            response_for_answer = parts[-1]  # Last part after </think>
+            # But keep full response as fallback
+            full_response = response
+        else:
+            response_for_answer = response
+            full_response = response
+
+        # ── Try \boxed{...} in post-think section first ──
         boxed_patterns = [
             r'\\boxed\{([^{}]+(?:\{[^{}]*\}[^{}]*)*)\}',
             r'\\boxed\{(.+?)\}',
         ]
         for pattern in boxed_patterns:
-            matches = re.findall(pattern, response, re.DOTALL)
+            matches = re.findall(pattern, response_for_answer, re.DOTALL)
+            if matches:
+                return matches[-1].strip()
+
+        # If not found after </think>, try full response
+        for pattern in boxed_patterns:
+            matches = re.findall(pattern, full_response, re.DOTALL)
             if matches:
                 return matches[-1].strip()
 
         # ── Try #### answer (GSM8K) ─────────────────
-        gsm_match = re.search(r'####\s*(.+?)(?:\n|$)', response)
+        gsm_match = re.search(r'####\s*(.+?)(?:\n|$)', response_for_answer)
+        if gsm_match:
+            return gsm_match.group(1).strip()
+
+        gsm_match = re.search(r'####\s*(.+?)(?:\n|$)', full_response)
         if gsm_match:
             return gsm_match.group(1).strip()
 
@@ -260,12 +278,12 @@ class CoTEngine:
             r'=\s*(\d+(?:\.\d+)?)\s*$',
         ]
         for pattern in answer_patterns:
-            match = re.search(pattern, response, re.MULTILINE)
+            match = re.search(pattern, response_for_answer, re.MULTILINE)
             if match:
                 return match.group(1).strip()
 
         # ── Fallback: last number in response ───────
-        numbers = re.findall(r'-?\d+(?:\.\d+)?', response)
+        numbers = re.findall(r'-?\d+(?:\.\d+)?', response_for_answer)
         if numbers:
             return numbers[-1]
 

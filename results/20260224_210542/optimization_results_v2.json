@@ -1,0 +1,67 @@
+{
+  "optimal_thresholds": {
+    "tau_low": 0.2,
+    "tau_high": 0.45,
+    "sigma_symbolic": 0.6,
+    "sigma_neural": 0.35,
+    "train_score": 0.5579,
+    "train_accuracy": 0.6057,
+    "train_token_eff": 0.4464
+  },
+  "old_thresholds": {
+    "tau_low": 0.3,
+    "tau_high": 0.65,
+    "sigma_symbolic": 0.6,
+    "sigma_neural": 0.3
+  },
+  "train_size": 279,
+  "test_size": 120,
+  "test_results": {
+    "symbolic_only": {
+      "accuracy": 0.4,
+      "avg_tokens": 542.45
+    },
+    "cot_only": {
+      "accuracy": 0.675,
+      "avg_tokens": 1309.7833333333333
+    },
+    "fixed_hybrid": {
+      "accuracy": 0.675,
+      "avg_tokens": 1363.925
+    },
+    "random_routing": {
+      "accuracy": 0.5666666666666667,
+      "avg_tokens": 1092.2916666666667
+    },
+    "adaptive_original": {
+      "accuracy": 0.625,
+      "total_tokens": 139410,
+      "avg_tokens": 1161.8,
+      "route_counts": {
+        "symbolic": 13,
+        "neural_cot": 54,
+        "hybrid": 53
+      },
+      "route_correct": {
+        "symbolic": 4,
+        "neural_cot": 45,
+        "hybrid": 26
+      }
+    },
+    "adaptive_optimized": {
+      "accuracy": 0.6583333333333333,
+      "total_tokens": 150461,
+      "avg_tokens": 1253.8,
+      "route_counts": {
+        "symbolic": 5,
+        "neural_cot": 58,
+        "hybrid": 57
+      },
+      "route_correct": {
+        "symbolic": 1,
+        "neural_cot": 48,
+        "hybrid": 30
+      }
+    }
+  }
+}

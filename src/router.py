@@ -70,19 +70,22 @@ class Router:
     def route(self, profile: ComplexityProfile) -> RoutingDecision:
         """
         Determine the optimal reasoning path for a given complexity profile.
-
-        Args:
-            profile: ComplexityProfile from the analyzer.
-
-        Returns:
-            RoutingDecision with path, confidence, and reasoning.
         """
         C = profile.composite_score
         sigma = profile.symbolic_structure
         kappa = profile.quantifier_alternation
         omega = profile.nesting_complexity
 
-        path, confidence, reasoning = self._apply_rules(C, sigma, kappa, omega)
+        # ══════════════════════════════════════════════
+        # FIX: Extract variable count from profile
+        # Problems with variables + equations benefit from
+        # at least symbolic solving (not just simplification)
+        # ══════════════════════════════════════════════
+        n_V = profile.variable_count
+
+        path, confidence, reasoning = self._apply_rules(
+            C, sigma, kappa, omega, n_V
+        )
 
         decision = RoutingDecision(
             path=path,
@@ -98,14 +101,29 @@ class Router:
         return decision
 
     def _apply_rules(
-        self, C: float, sigma: float, kappa: int, omega: int
+    self, C: float, sigma: float, kappa: int, omega: int, n_V: int = 0
     ) -> Tuple[RoutePath, float, str]:
-        """Core routing logic."""
+        """Core routing logic with variable-awareness."""
+
+        # ── Rule 0 (NEW): Variable-aware upgrade ────
+        # If there are variables AND high symbolic content,
+        # the problem likely needs equation SOLVING.
+        # Symbolic engine CAN solve equations, so keep it
+        # in symbolic. But if nesting is also high, go hybrid.
+        # This handles cases like $\frac{x^2-4}{x-2} = 3$
 
         # ── Rule 1: SYMBOLIC ────────────────────────
-        # Low composite complexity + highly symbolic content
-        # → Can be solved directly by SymPy/Z3
         if C < self.tau_low and sigma > self.sigma_symbolic:
+            # NEW: If variables + moderate complexity → upgrade to HYBRID
+            if n_V >= 1 and (omega >= 2 or C > self.tau_low * 0.7):
+                confidence = 0.65
+                reasoning = (
+                    f"HYBRID (upgraded from Symbolic): "
+                    f"C={C:.3f} is low but n_V={n_V} variables "
+                    f"with ω={omega} nesting suggests equation solving"
+                )
+                return RoutePath.HYBRID, confidence, reasoning
+
             confidence = self._calc_confidence_symbolic(C, sigma)
             reasoning = (
                 f"SYMBOLIC: Low complexity (C={C:.3f} < τ_low={self.tau_low}) "
@@ -114,15 +132,12 @@ class Router:
             return RoutePath.SYMBOLIC, confidence, reasoning
 
         # ── Rule 2: NEURAL CoT ─────────────────────
-        # High complexity OR very low symbolic content
-        # → Needs LLM reasoning (word problems, complex proofs)
         if C > self.tau_high or sigma < self.sigma_neural:
-            # Special case: high quantifier alternation → upgrade to HYBRID
             if kappa >= 2:
                 confidence = 0.70
                 reasoning = (
                     f"HYBRID (upgraded from CoT): complexity C={C:.3f}, "
-                    f"but κ_Q={kappa} ≥ 2 suggests formal structure"
+                    f"but κ_Q={kappa} >= 2 suggests formal structure"
                 )
                 return RoutePath.HYBRID, confidence, reasoning
 
@@ -133,15 +148,13 @@ class Router:
             )
             return RoutePath.NEURAL_COT, confidence, reasoning
 
-        # ── Rule 3: HYBRID (default middle zone) ────
-        # Medium complexity → CoT for decomposition + symbolic verification
+        # ── Rule 3: HYBRID ──────────────────────────
         confidence = self._calc_confidence_hybrid(C, sigma, omega)
         reasoning = (
             f"HYBRID: Medium complexity zone "
             f"(C={C:.3f}, σ={sigma:.3f}, ω={omega})"
         )
 
-        # Boost confidence if high nesting (structured expression)
         if omega >= 8:
             confidence = min(1.0, confidence + 0.1)
             reasoning += f" [High nesting ω={omega} boosts confidence]"

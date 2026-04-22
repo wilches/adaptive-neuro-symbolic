@@ -130,7 +130,7 @@ class AdaptivePipeline:
 
         # ── Step 3: Execute selected path ────────────
         if route == RoutePath.SYMBOLIC:
-            result = self._execute_symbolic(problem)
+            result = self._execute_symbolic(problem, prompt_type)
         elif route == RoutePath.NEURAL_COT:
             result = self._execute_cot(problem, prompt_type)
         else:  # HYBRID
@@ -209,10 +209,43 @@ class AdaptivePipeline:
 
     # ─── EXECUTION PATHS ─────────────────────────────
 
-    def _execute_symbolic(self, problem: str) -> dict:
-        """Execute the pure symbolic path."""
+    def _execute_symbolic(self, problem: str, prompt_type: str = "math") -> dict:
+        """
+        Execute the symbolic path WITH FALLBACK to CoT.
+        If the symbolic engine cannot solve the problem,
+        automatically fall back to neural CoT.
+        """
         sym_result = self.symbolic_engine.solve(problem)
 
+        # ══════════════════════════════════════════════
+        # FIX: If symbolic fails, fall back to CoT.
+        # This prevents empty answers from tanking accuracy.
+        # ══════════════════════════════════════════════
+        if not sym_result.success or not sym_result.answer:
+            # Symbolic failed → fall back to CoT
+            cot_result = self.cot_engine.solve(problem, prompt_type=prompt_type)
+            cost = self.cot_engine.estimate_cost(
+                cot_result.tokens_input, cot_result.tokens_output
+            )
+            return {
+                'answer': cot_result.answer,
+                'tokens_input': cot_result.tokens_input,
+                'tokens_output': cot_result.tokens_output,
+                'tokens_total': cot_result.tokens_total,
+                'cost': cost,
+                'engine': f'symbolic_fallback_to_cot/{self.cot_config.name}',
+                'details': {
+                    'symbolic_attempted': True,
+                    'symbolic_failed': True,
+                    'symbolic_steps': sym_result.steps,
+                    'fallback_provider': cot_result.provider,
+                    'fallback_model': cot_result.model,
+                    'fallback_success': cot_result.success,
+                    'fallback_latency': cot_result.latency_seconds,
+                },
+            }
+
+        # Symbolic succeeded → use it (0 tokens!)
         return {
             'answer': sym_result.answer,
             'tokens_input': 0,
@@ -225,6 +258,8 @@ class AdaptivePipeline:
                 'steps': sym_result.steps,
                 'success': sym_result.success,
                 'latency': sym_result.latency_seconds,
+                'symbolic_attempted': True,
+                'symbolic_failed': False,
             },
         }
 
@@ -311,15 +346,7 @@ class AdaptivePipeline:
     # ─── ANSWER CHECKING ────────────────────────────
 
     def _check_answer(self, predicted: str, expected: str) -> bool:
-        """
-        Check if predicted answer matches expected answer.
-
-        Handles multiple formats:
-            - Exact string match
-            - Numerical equivalence (with tolerance)
-            - Fraction equivalence
-            - LaTeX equivalence
-        """
+        """Check if predicted answer matches expected answer."""
         if not predicted or not expected:
             return False
 
@@ -330,12 +357,47 @@ class AdaptivePipeline:
         if predicted == expected:
             return True
 
-        # ── Clean both for comparison ────────────────
+        # ── Clean both ──────────────────────────────
         pred_clean = self._clean_answer(predicted)
         exp_clean = self._clean_answer(expected)
 
         if pred_clean == exp_clean:
             return True
+
+        # ── List/set handling ───────────────────────
+        pred_values = self._extract_values_from_answer(pred_clean)
+        exp_values = self._extract_values_from_answer(exp_clean)
+
+        # Both are sets: check set equality
+        if len(pred_values) > 1 and len(exp_values) > 1:
+            try:
+                pred_floats = sorted([float(v) for v in pred_values])
+                exp_floats = sorted([float(v) for v in exp_values])
+                if len(pred_floats) == len(exp_floats):
+                    if all(abs(a - b) < 1e-4 for a, b in zip(pred_floats, exp_floats)):
+                        return True
+            except (ValueError, TypeError):
+                if set(pred_values) == set(exp_values):
+                    return True
+
+        # Expected is single value, predicted is list: check membership
+        if len(exp_values) == 1 and len(pred_values) >= 1:
+            for pv in pred_values:
+                try:
+                    if abs(float(pv) - float(exp_values[0])) < 1e-4:
+                        return True
+                except (ValueError, TypeError):
+                    if str(pv).strip() == str(exp_values[0]).strip():
+                        return True
+
+        # Predicted is single value, expected is list: check membership
+        if len(pred_values) == 1 and len(exp_values) >= 1:
+            for ev in exp_values:
+                try:
+                    if abs(float(pred_values[0]) - float(ev)) < 1e-4:
+                        return True
+                except (ValueError, TypeError):
+                    pass
 
         # ── Numerical comparison ─────────────────────
         try:
@@ -343,7 +405,6 @@ class AdaptivePipeline:
             exp_num = float(self._to_number(exp_clean))
             if abs(pred_num - exp_num) < 1e-4:
                 return True
-            # Relative tolerance for large numbers
             if exp_num != 0 and abs((pred_num - exp_num) / exp_num) < 1e-4:
                 return True
         except (ValueError, TypeError, ZeroDivisionError):
@@ -361,18 +422,35 @@ class AdaptivePipeline:
 
         return False
 
+
+    #------ Extract value from answer
+    def _extract_values_from_answer(self, answer: str) -> list:
+        """
+        Extract individual values from an answer that might be a list.
+        "[-2, 2]" → ["-2", "2"]
+        "5"       → ["5"]
+        "2/3"     → ["2/3"]
+        """
+        s = answer.strip()
+        s = s.strip('[]{}()')
+        if ',' in s:
+            parts = [p.strip() for p in s.split(',')]
+            return [p for p in parts if p]
+        return [s] if s else []
+
     def _clean_answer(self, answer: str) -> str:
         """Clean answer string for comparison."""
         s = answer.strip()
-        # Remove LaTeX wrappers
         s = s.replace('\\boxed{', '').replace('}', '')
         s = s.replace('$', '').replace('\\', '')
-        # Remove trailing periods
         s = s.rstrip('.')
-        # Remove spaces
         s = s.replace(' ', '')
-        # Remove commas in numbers
-        s = s.replace(',', '')
+
+        # Remove commas ONLY in pure numbers (e.g., "1,000" → "1000")
+        # but NOT in lists like "[-5,5]"
+        if not ('[' in s or '(' in s or '{' in s):
+            s = s.replace(',', '')
+
         return s
 
     def _to_number(self, s: str) -> float:

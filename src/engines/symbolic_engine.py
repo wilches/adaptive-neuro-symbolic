@@ -2,14 +2,14 @@
 Symbolic Reasoning Engine
 ==========================
 
-Interfaces with SymPy and Z3 for formal mathematical solving.
+Interfaces with SymPy formal mathematical solving.
 Runs entirely LOCAL — zero API cost, zero tokens consumed.
 
 Handles:
     - Algebraic equations and systems
     - Simplification and evaluation
     - Arithmetic word problem expressions
-    - Basic logical formulas (via Z3)
+    - Basic logical formulas
 """
 
 import re
@@ -72,66 +72,74 @@ class SymbolicEngine:
     def solve(self, problem: str) -> SymbolicResult:
         """
         Attempt to solve a mathematical problem symbolically.
-
-        Tries multiple strategies in order of specificity.
-
-        Args:
-            problem: Mathematical problem text (may contain LaTeX).
-
-        Returns:
-            SymbolicResult with answer and method details.
         """
         start_time = time.time()
         steps = []
+        MAX_TIME = 10  # seconds — don't spend more than 10s on any problem
 
         # ── Strategy 1: Extract and solve equations ──
-        result = self._try_equation_solving(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="sympy_solve",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_equation_solving(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="sympy_solve",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Equation solving error: {e}")
 
-        # ── Strategy 2: Extract and simplify expression ──
-        result = self._try_simplification(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="sympy_simplify",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        # ── Strategy 2: Simplify expression ──────────
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_simplification(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="sympy_simplify",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Simplification error: {e}")
 
-        # ── Strategy 3: Direct arithmetic evaluation ──
-        result = self._try_arithmetic_eval(problem, steps)
-        if result is not None:
-            elapsed = round(time.time() - start_time, 4)
-            return SymbolicResult(
-                answer=str(result),
-                method_used="arithmetic_eval",
-                steps=steps,
-                success=True,
-                latency_seconds=elapsed,
-            )
+        # ── Strategy 3: Arithmetic evaluation ────────
+        try:
+            if time.time() - start_time < MAX_TIME:
+                result = self._try_arithmetic_eval(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="arithmetic_eval",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Arithmetic error: {e}")
 
-        # ── Strategy 4: Z3 constraint solving ───────
-        if self._z3 is not None:
-            result = self._try_z3_solve(problem, steps)
-            if result is not None:
-                elapsed = round(time.time() - start_time, 4)
-                return SymbolicResult(
-                    answer=str(result),
-                    method_used="z3",
-                    steps=steps,
-                    success=True,
-                    latency_seconds=elapsed,
-                )
+        # ── Strategy 4: Z3 ──────────────────────────
+        try:
+            if self._z3 is not None and time.time() - start_time < MAX_TIME:
+                result = self._try_z3_solve(problem, steps)
+                if result is not None:
+                    elapsed = round(time.time() - start_time, 4)
+                    return SymbolicResult(
+                        answer=str(result),
+                        method_used="z3",
+                        steps=steps,
+                        success=True,
+                        latency_seconds=elapsed,
+                    )
+        except Exception as e:
+            steps.append(f"Z3 error: {e}")
 
         # ── All strategies failed ────────────────────
         elapsed = round(time.time() - start_time, 4)
@@ -212,9 +220,7 @@ class SymbolicEngine:
         sympy = self._sympy
         steps.append("Attempting equation extraction and solving")
 
-        # ── Extract LaTeX equations ──────────────────
         equation_patterns = [
-            # Pattern: ... = ...
             r'\$([^$]*=[^$]*)\$',
             r'\\\(([^)]*=[^)]*)\\\)',
             r'([a-zA-Z0-9\s\+\-\*/\^()]+=[a-zA-Z0-9\s\+\-\*/\^()]+)',
@@ -223,21 +229,24 @@ class SymbolicEngine:
         for pattern in equation_patterns:
             matches = re.findall(pattern, problem)
             for match in matches:
-                parsed = self._parse_equation(match)
-                if parsed is not None:
-                    steps.append(f"Found equation: {match}")
-                    try:
-                        variables = list(parsed.free_symbols)
-                        if len(variables) == 1:
-                            solutions = sympy.solve(parsed, variables[0])
-                            if solutions:
-                                steps.append(f"Solved: {variables[0]} = {solutions}")
-                                return solutions[0] if len(solutions) == 1 else solutions
-                        elif len(variables) > 1:
-                            steps.append(f"Multiple variables found: {variables}")
-                            # Can't solve without more equations
-                    except Exception as e:
-                        steps.append(f"Solve failed: {e}")
+                try:
+                    parsed = self._parse_equation(match)
+                    if parsed is not None:
+                        steps.append(f"Found equation: {match}")
+                        try:
+                            variables = list(parsed.free_symbols)
+                            if len(variables) == 1:
+                                solutions = sympy.solve(parsed, variables[0])
+                                if solutions:
+                                    steps.append(f"Solved: {variables[0]} = {solutions}")
+                                    return solutions[0] if len(solutions) == 1 else solutions
+                            elif len(variables) > 1:
+                                steps.append(f"Multiple variables found: {variables}")
+                        except Exception as e:
+                            steps.append(f"Solve failed: {e}")
+                except Exception as e:
+                    steps.append(f"Parse failed for '{match[:50]}': {e}")
+                    continue
 
         return None
 
@@ -248,7 +257,6 @@ class SymbolicEngine:
         sympy = self._sympy
         steps.append("Attempting expression simplification")
 
-        # Extract math expressions
         math_patterns = [
             r'\$([^$]+)\$',
             r'\\\((.+?)\\\)',
@@ -258,57 +266,55 @@ class SymbolicEngine:
             matches = re.findall(pattern, problem)
             for match in matches:
                 if '=' in match:
-                    continue  # Skip equations, handled above
+                    continue
 
-                parsed = self._parse_math_expression(match)
-                if parsed is not None:
-                    steps.append(f"Simplifying: {match}")
-                    try:
+                try:
+                    parsed = self._parse_math_expression(match)
+                    if parsed is not None:
+                        steps.append(f"Simplifying: {match}")
                         simplified = sympy.simplify(parsed)
-                        evaluated = sympy.N(simplified)
-                        steps.append(f"Result: {evaluated}")
-                        return evaluated
-                    except Exception as e:
-                        steps.append(f"Simplification failed: {e}")
+
+                        if simplified.is_number:
+                            rational = sympy.nsimplify(simplified, rational=True)
+                            steps.append(f"Result: {rational}")
+                            return rational
+
+                        steps.append(f"Result: {simplified}")
+                        return simplified
+                except Exception as e:
+                    steps.append(f"Simplification failed: {e}")
+                    continue
 
         return None
 
+
     def _try_arithmetic_eval(
-        self, problem: str, steps: List[str]
+    self, problem: str, steps: List[str]
     ) -> Optional[Any]:
         """Try to evaluate pure arithmetic expressions."""
         steps.append("Attempting arithmetic evaluation")
 
-        # Look for computable expressions
-        # Extract things like "48 + 24", "48 / 2", etc.
-        arithmetic_patterns = [
-            r'(\d+(?:\.\d+)?)\s*([+\-*/])\s*(\d+(?:\.\d+)?)',
-        ]
+        # ══════════════════════════════════════════════════
+        # FIX: Handle full arithmetic expressions, not just
+        # single binary operations.
+        # ══════════════════════════════════════════════════
 
-        results = []
-        for pattern in arithmetic_patterns:
-            for match in re.finditer(pattern, problem):
-                expr_str = match.group(0)
-                try:
-                    # Safe evaluation — only arithmetic
-                    result = self._safe_eval(expr_str)
-                    if result is not None:
-                        results.append(result)
-                        steps.append(f"Evaluated: {expr_str} = {result}")
-                except Exception:
-                    pass
+        # Strategy 1: Find full arithmetic expressions in the text
+        # Match sequences of numbers and operators
+        full_expr_pattern = r'(\d+(?:\.\d+)?(?:\s*[+\-*/]\s*\d+(?:\.\d+)?)+)'
 
-        # If we found exactly one result, return it
-        if len(results) == 1:
-            return results[0]
+        for match in re.finditer(full_expr_pattern, problem):
+            expr_str = match.group(0)
+            result = self._safe_eval(expr_str)
+            if result is not None:
+                steps.append(f"Evaluated full expression: {expr_str} = {result}")
+                return result
 
-        # For word problems, try to extract ALL numbers and guess operation
+        # Strategy 2: Extract all numbers and try to find operations
+        # in the surrounding text
         numbers = re.findall(r'\b(\d+(?:\.\d+)?)\b', problem)
         if numbers:
             steps.append(f"Found numbers: {numbers}")
-            # Don't guess — if we can't determine the operation,
-            # this should go to CoT anyway
-            pass
 
         return None
 
@@ -361,12 +367,11 @@ class SymbolicEngine:
         """Parse a LaTeX or plain math expression into SymPy."""
         sympy = self._sympy
 
-        # Clean the expression
         cleaned = expr_str.strip()
         cleaned = cleaned.replace('\\left', '').replace('\\right', '')
         cleaned = cleaned.replace('\\,', ' ').replace('\\;', ' ')
 
-        # ── Try SymPy's LaTeX parser ────────────────
+        # ── Strategy 1: SymPy LaTeX parser ──────────
         try:
             from sympy.parsing.latex import parse_latex
             result = parse_latex(cleaned)
@@ -374,16 +379,50 @@ class SymbolicEngine:
         except Exception:
             pass
 
-        # ── Try converting LaTeX to SymPy string ────
+        # ── Strategy 2: Manual LaTeX → string → sympify with implicit mult ──
         converted = self._latex_to_sympy_string(cleaned)
         if converted:
+            try:
+                from sympy.parsing.sympy_parser import (
+                    parse_expr,
+                    standard_transformations,
+                    implicit_multiplication_application,
+                    convert_xor,
+                )
+                transformations = (
+                    standard_transformations
+                    + (implicit_multiplication_application,)
+                    + (convert_xor,)
+                )
+                result = parse_expr(converted, transformations=transformations)
+                return result
+            except Exception:
+                pass
+
+            # Fallback without transformations
             try:
                 result = sympy.sympify(converted)
                 return result
             except Exception:
                 pass
 
-        # ── Try direct sympify ──────────────────────
+        # ── Strategy 3: Direct sympify with implicit mult ──
+        try:
+            from sympy.parsing.sympy_parser import (
+                parse_expr,
+                standard_transformations,
+                implicit_multiplication_application,
+            )
+            transformations = (
+                standard_transformations
+                + (implicit_multiplication_application,)
+            )
+            result = parse_expr(cleaned, transformations=transformations)
+            return result
+        except Exception:
+            pass
+
+        # ── Strategy 4: Plain sympify ───────────────
         try:
             result = sympy.sympify(cleaned)
             return result
@@ -403,11 +442,18 @@ class SymbolicEngine:
         if len(parts) != 2:
             return None
 
-        left = self._parse_math_expression(parts[0].strip())
-        right = self._parse_math_expression(parts[1].strip())
+        try:
+            left = self._parse_math_expression(parts[0].strip())
+            right = self._parse_math_expression(parts[1].strip())
 
-        if left is not None and right is not None:
-            return sympy.Eq(left, right)
+            if left is not None and right is not None:
+                # Verify both sides are valid SymPy expressions
+                # before creating Eq
+                sympy.sympify(left)
+                sympy.sympify(right)
+                return sympy.Eq(left, right)
+        except Exception:
+            return None
 
         return None
 
@@ -416,7 +462,6 @@ class SymbolicEngine:
         s = latex
 
         # ── Fractions ────────────────────────────────
-        # \frac{a}{b} → (a)/(b)
         while '\\frac' in s:
             match = re.search(
                 r'\\frac\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}'
@@ -436,15 +481,16 @@ class SymbolicEngine:
         # ── Powers ───────────────────────────────────
         s = re.sub(r'\^{([^{}]+)}', r'**(\1)', s)
         s = re.sub(r'\^(\d)', r'**\1', s)
+        s = re.sub(r'\^(\w)', r'**\1', s)
 
         # ── Common functions ─────────────────────────
         for func in ['sin', 'cos', 'tan', 'log', 'ln', 'exp']:
             s = s.replace(f'\\{func}', func)
 
-        # ── Multiplication ───────────────────────────
+        # ── Multiplication symbols ───────────────────
         s = s.replace('\\cdot', '*').replace('\\times', '*')
 
-        # ── Clean up ─────────────────────────────────
+        # ── Clean LaTeX residue ──────────────────────
         s = s.replace('\\', '').replace('{', '(').replace('}', ')')
         s = re.sub(r'\s+', ' ', s).strip()
 

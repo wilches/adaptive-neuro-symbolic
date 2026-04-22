@@ -142,16 +142,6 @@ class ComplexityAnalyzer:
     # ─── PUBLIC API ──────────────────────────────────
 
     def analyze(self, prompt: str) -> ComplexityProfile:
-        """
-        Compute the full complexity profile for a mathematical prompt.
-
-        Args:
-            prompt: Mathematical problem text (may contain LaTeX).
-
-        Returns:
-            ComplexityProfile with all metrics and routing suggestion.
-        """
-        # ── Step 1: Compute raw metrics ─────────────
         d_L = self._compute_logical_depth(prompt)
         n_V = self._compute_variable_count(prompt)
         sigma_S = self._compute_symbolic_structure(prompt)
@@ -166,13 +156,12 @@ class ComplexityAnalyzer:
             'quantifier_alternation': kappa_Q,
         }
 
-        # ── Step 2: Compute composite score ─────────
         composite = self._compute_composite_score(
             d_L, n_V, sigma_S, omega_N, kappa_Q
         )
 
-        # ── Step 3: Determine routing suggestion ────
-        routing = self._suggest_route(composite, sigma_S, kappa_Q)
+        # Pass n_V to suggest_route for variable-aware suggestion
+        routing = self._suggest_route(composite, sigma_S, kappa_Q, n_V)
 
         return ComplexityProfile(
             logical_depth=d_L,
@@ -382,17 +371,23 @@ class ComplexityAnalyzer:
     # ─── ROUTING SUGGESTION ──────────────────────────
 
     def _suggest_route(
-        self, composite: float, sigma_S: float, kappa_Q: int
+        self, composite: float, sigma_S: float, kappa_Q: int, n_V: int = 0
     ) -> str:
-        """Preliminary routing suggestion based on thresholds."""
+        """Preliminary routing suggestion matching Router logic."""
         tau_low = self.thresholds['tau_low']
         tau_high = self.thresholds['tau_high']
         sigma_sym = self.thresholds['sigma_symbolic_threshold']
         sigma_neu = self.thresholds['sigma_neural_threshold']
 
         if composite < tau_low and sigma_S > sigma_sym:
+            # Upgrade to hybrid only if there are variables
+            # (matches Router's n_V >= 1 logic)
+            if n_V >= 1 and composite > tau_low * 0.7:
+                return "hybrid"
             return "symbolic"
         elif composite > tau_high or sigma_S < sigma_neu:
+            if kappa_Q >= 2:
+                return "hybrid"
             return "neural_cot"
         else:
             return "hybrid"
