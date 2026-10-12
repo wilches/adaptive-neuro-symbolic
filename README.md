@@ -17,7 +17,7 @@ This repository contains the code, cached experimental outputs, and reproducibil
   - Fixed CoT + symbolic-answer-checking is **counterproductive** (lower accuracy, more tokens) under our implementation.
   - The standalone symbolic engine is limited by **parser fidelity** — SymPy parses many MATH problems but silently drops constructs.
 
-> ⚠️ **Honest framing.** Adaptive routing does **not** beat CoT-only in accuracy on this benchmark. It saves tokens at a small accuracy cost and beats a random-routing baseline by a clear margin. We report this explicitly per reviewer feedback; the original abstract is corrected in `MAPI4_revised.tex`.
+> ⚠️ **Honest framing.** Adaptive routing does **not** beat CoT-only in accuracy on this benchmark. It saves tokens at a small accuracy cost and beats a random-routing baseline by a clear margin. We report this explicitly per reviewer feedback; the camera-ready extended abstract reflects this framing.
 
 ---
 
@@ -56,6 +56,8 @@ This repository contains the code, cached experimental outputs, and reproducibil
 │   ├── optimize_thresholds.py        # Single-split threshold grid search
 │   ├── optimize_thresholds_v2.py     # Stricter held-out evaluation
 │   ├── analyze_results.py            # Generates figures and LaTeX tables
+│   ├── generate_paper_figures.py     # Paper figures (results/<run>/figures/)
+│   ├── diagnose_answer_matching.py   # Answer-matching diagnostics
 │   ├── revision_analyses.py          # Reviewer-response analyses (no new API calls)
 │   ├── quick_test.py                 # Local smoke tests (no API)
 │   ├── test_raw_api.py               # Minimal API connectivity check
@@ -73,9 +75,8 @@ This repository contains the code, cached experimental outputs, and reproducibil
 │       ├── optimal_thresholds.json   # Grid-search optimum
 │       └── revision_numbers.json     # Reviewer-response analyses
 │
-├── paper/                            # (optional) LaTeX sources of submission
-│   ├── MAPI4_revised.tex             # Reviewer-revised version (long)
-│   └── MAPI4_revised_6pg.tex         # Reviewer-revised version (6-page)
+├── tests/
+│   └── test_analyzer.py              # Unit tests for the complexity analyzer
 │
 ├── requirements.txt
 ├── .env.example                      # Template for API keys
@@ -92,8 +93,8 @@ This path verifies the symbolic engine, complexity analyzer, and router on a han
 
 ```bash
 # 1. Clone
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/wilches/adaptive-neuro-symbolic.git
+cd adaptive-neuro-symbolic
 
 # 2. Create a clean environment (Python 3.10+ recommended)
 python -m venv .venv
@@ -146,9 +147,10 @@ python experiments/test_api_connection.py    # End-to-end on 3 problems
 > ⚠️ This calls the LLM 3×399 = 1197 times across baselines (CoT-only + Fixed Hybrid + Adaptive) plus 399 zero-cost symbolic runs. Expect ~20–40 minutes wall-clock and **≈ $0.35** on SiliconFlow with DeepSeek-R1-Distill-Qwen-14B.
 
 ```bash
+# 5 levels × 60 ≈ 300 MATH problems (paper uses 299 after filtering) + 100 GSM8K
 python experiments/run_experiment.py \
     --provider siliconflow \
-    --math-per-level 60 \       # 5 levels × 60 ≈ 300 MATH problems (paper uses 299 after filtering)
+    --math-per-level 60 \
     --gsm8k-size 100 \
     --output-dir results
 ```
@@ -301,7 +303,7 @@ If you use this code, please cite the paper (final BibTeX will be added once pro
 @inproceedings{herrera2026adaptive,
   title     = {Adaptive Neuro-Symbolic Reasoning via Dynamic Routing
                and Structural Complexity Metrics for Mathematical Problem Solving},
-  author    = {Herrera Wilches, Juan Camilo},
+  author    = {Wilches, Juan},
   booktitle = {Proceedings of the 4th Colombian Conference on Applied
                and Industrial Mathematics (MAPI 4)},
   year      = {2026},
@@ -321,7 +323,6 @@ Code is released under the **MIT License** (see `LICENSE`). Benchmarks (MATH, GS
 
 ## Contact
 
-Juan Camilo Herrera Wilches — Independent Researcher, Colombia
-Email: wilchesch2010@gmail.com
+Juan Wilches — Independent Researcher, Colombia
 
 Issues and pull requests welcome. For questions about the paper, please reference the section / reviewer comment you have in mind.
