@@ -58,7 +58,6 @@ This repository contains the code, cached experimental outputs, and reproducibil
 │   ├── analyze_results.py            # Generates figures and LaTeX tables
 │   ├── generate_paper_figures.py     # Paper figures (results/<run>/figures/)
 │   ├── diagnose_answer_matching.py   # Answer-matching diagnostics
-│   ├── revision_analyses.py          # Reviewer-response analyses (no new API calls)
 │   ├── quick_test.py                 # Local smoke tests (no API)
 │   ├── test_raw_api.py               # Minimal API connectivity check
 │   └── test_api_connection.py        # Full end-to-end API check
@@ -72,16 +71,13 @@ This repository contains the code, cached experimental outputs, and reproducibil
 │       ├── results_hybrid.json       # Per-problem hybrid outputs
 │       ├── results_adaptive_math.json
 │       ├── results_adaptive_gsm8k.json
-│       ├── optimal_thresholds.json   # Grid-search optimum
-│       └── revision_numbers.json     # Reviewer-response analyses
+│       └── optimal_thresholds.json   # Grid-search optimum
 │
 ├── tests/
 │   └── test_analyzer.py              # Unit tests for the complexity analyzer
 │
 ├── requirements.txt
-├── .env.example                      # Template for API keys
-├── REPRODUCIBILITY.md                # Step-by-step replication guide
-├── CITATION.cff
+├── LICENSE
 └── README.md
 ```
 
@@ -128,8 +124,7 @@ Pick one provider and follow the instructions:
 ### 2. Configure the environment
 
 ```bash
-cp .env.example .env
-# Edit .env and set ONE of:
+# Create a file named .env in the repo root and set ONE of:
 #   SILICONFLOW_API_KEY=sk-...
 #   OPENAI_API_KEY=sk-...
 #   GEMINI_API_KEY=...
@@ -181,12 +176,9 @@ python experiments/kfold_evaluation.py
 # Threshold optimization on cached data
 python experiments/optimize_thresholds_v2.py
 
-# Reviewer-response analyses (routing distribution, parse-vs-solve failures,
-# token accounting, 15-config weight sensitivity)
-python experiments/revision_analyses.py
 ```
 
-`experiments/revision_analyses.py` writes a machine-readable dump to `results/20260224_210542/revision_numbers.json` — this is the source of all numbers added in the revision (Section 3 + reviewer responses).
+The additional analyses added during peer review (routing distribution, parse-vs-solve failures, token accounting and the 15-configuration weight-sensitivity study) are reported in the paper. The script that produced them was lost with a local machine and is not part of this release; those analyses were computed from the cached per-problem outputs above, without new API calls.
 
 ---
 
@@ -310,8 +302,6 @@ If you use this code, please cite the paper (final BibTeX will be added once pro
   address   = {Colombia}
 }
 ```
-
-A `CITATION.cff` is also provided for GitHub's "Cite this repository" widget.
 
 ---
 
