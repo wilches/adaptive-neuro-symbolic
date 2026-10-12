@@ -1,7 +1,7 @@
 # Adaptive Neuro-Symbolic Reasoning via Dynamic Routing
 
 > **Paper:** *Adaptive Neuro-Symbolic Reasoning via Dynamic Routing and Structural Complexity Metrics for Mathematical Problem Solving*
-> Submitted to **MAPI 4 — Conferencia Colombiana de Matemáticas Aplicadas e Industriales** (2026).
+> Accepted and presented at **MAPI 4 — Conferencia Colombiana de Matemáticas Aplicadas e Industriales** (2026).
 
 This repository contains the code, cached experimental outputs, and reproducibility scripts for an adaptive framework that routes mathematical problems between three reasoning paths — **symbolic** (SymPy), **neural chain-of-thought** (LLM), and **hybrid** — based on five structural complexity metrics computed directly from the problem statement.
 
